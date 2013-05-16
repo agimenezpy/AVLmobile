@@ -4,10 +4,10 @@
     <title>AVL Mobile</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/jquery.mobile-1.3.1.min.css" />
+    <link rel="stylesheet" href="css/styles.css" />
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
     <script src="lib/jquery-1.8.3.min.js"></script>
     <script src="js/main.js"></script>
-    <script src="lib/jquery.ui.map.min.js"></script>
     <script src="lib/jquery.mobile-1.3.1.min.js"></script>
     <script src="lib/md5.js"></script>
 </head>
@@ -15,7 +15,7 @@
 
 <div data-role="page" id="login">
 
-    <div data-role="header" data-theme="b">
+    <div data-role="header">
         <h1>AVL Mobile</h1>
     </div><!-- /header -->
 
@@ -29,7 +29,7 @@
             <input type="hidden" name="nonce" id="nonce" value=""/>
         </div>
         <div data-role="fieldcontain" class="ui-hide-label">
-            <input type="submit" value="Ingresar" data-theme="a" data-icon="arrow-r" />
+            <input type="submit" value="Ingresar" data-theme="e" data-icon="check" data-iconpos="top" />
         </div>
         </form>
     </div><!-- /content -->
@@ -37,8 +37,10 @@
 
 <div data-role="page" id="vehiculos">
 
-    <div data-role="header" data-theme="b">
+    <div data-role="header">
+        <a href="#logout" onclick="app.logout(this)" data-icon="back" data-iconpos="notext">Salir</a>
         <h1>AVL Mobile</h1>
+        <a href="#vehiculos" data-icon="home" data-iconpos="notext">Inicio</a>
     </div><!-- /header -->
 
     <div data-role="content">
@@ -46,34 +48,50 @@
         </ul>
     </div><!-- /content -->
 
-    <div data-role="footer" data-theme="a" data-position="fixed">
-        <div data-role="navbar">
-            <ul>
-            <li><a href="#logout" onclick="app.logout(this)" >Salir</a></li>
-            <li><a href="#vehiculos" onclick="app.vehiculosList(this)">Vehiculos</a></li>
-            </ul>
+    <div data-role="footer" data-theme="c" data-position="fixed">
+        <div data-role="navbar" class="nav-glyphish">
+            <ul><li>
+            <a href="#mapa" data-icon="custom-map" data-iconpos="top" data-transition="slideup">Mapa de Flota</a>
+            </li></ul>
         </div>
     </div>
 </div><!-- /page -->
 
-<div data-role="page" data-theme="b" id="mapa" style="height: 100%;">
+<div data-role="page" id="mapa" style="height: 100%;">
 
-    <div data-role="header" data-theme="b">
+    <div data-role="header">
+        <a href="#logout" onclick="app.logout(this)" data-icon="back" data-iconpos="notext">Salir</a>
         <h1>AVL Mobile</h1>
+        <a href="#vehiculos" data-icon="home" data-iconpos="notext">Inicio</a>
     </div><!-- /header -->
 
     <div data-role="content" style="height: 100%;padding:0;">
         <div id="map_canvas" style="height: 100%;"></div>
     </div><!-- /content -->
 
-    <div data-role="footer" data-theme="a" data-position="fixed">
-        <div data-role="navbar">
-            <ul>
-                <li><a href="#logout" onclick="app.logout(this)" >Salir</a></li>
-                <li><a href="#vehiculos" onclick="app.vehiculosList(this)">Vehiculos</a></li>
-            </ul>
+    <div data-role="footer" data-theme="c" data-position="fixed">
+        <div data-role="navbar" class="nav-glyphish">
+            <ul><li>
+            <a href="#detalles" data-icon="custom-list" data-iconpos="notext" data-transition="slideup">Seguimiento</a>
+            </li></ul>
         </div>
     </div>
+</div><!-- /page -->
+
+<div data-role="page" id="detalles">
+
+    <div data-role="header" data-theme="c" data-position="fixed">
+        <div data-role="navbar" class="nav-glyphish">
+            <ul><li>
+                <a href="#mapa" data-icon="custom-map" data-iconpos="notext" data-transition="slidedown">Mapa</a>
+            </li></ul>
+        </div>
+    </div><!-- /header -->
+
+    <div data-role="content">
+        <ul id="trackList" data-role="listview">
+        </ul>
+    </div><!-- /content -->
 </div><!-- /page -->
 </body>
 </html>
