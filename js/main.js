@@ -30,12 +30,10 @@ var Application = function() {
     this.cargarMapa = function() {
         var self = this;
         if (!self.map) {
-            $.mobile.loading('show');
             self.map = new google.maps.Map($('#map_canvas')[0],
                 {streetViewControl:false, mapTypeId:google.maps.MapTypeId.HYBRID,
                     zoom: 10,
                     center: new google.maps.LatLng(-25.3, -57.6)})
-            $.mobile.loading('hide');
             /*navigator.geolocation.getCurrentPosition(function(position) {
                     var posicion = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                     self.map.panTo(posicion);
@@ -250,6 +248,9 @@ var app;
 $( document ).bind( "mobileinit", function() {
     $.mobile.allowCrossDomainPages = true;
     $.mobile.listview.prototype.options.filterPlaceholder = "Buscar vehiculo ...";
+});
+
+$(document).ready(function() {
     app = new Application();
     document.addEventListener('backbutton', function() {
         app.logout();
