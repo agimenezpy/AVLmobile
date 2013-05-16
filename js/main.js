@@ -246,24 +246,12 @@ var Application = function() {
 }
 
 var app;
-var dd = $.Deferred();
-var jqd = $.Deferred();
 
-$.when(dd,jqd).done(function () {
+$( document ).bind( "mobileinit", function() {
     $.mobile.allowCrossDomainPages = true;
     $.mobile.listview.prototype.options.filterPlaceholder = "Buscar vehiculo ...";
     app = new Application();
-})
-
-document.addEventListener('deviceready', deviceReady, false);
-document.addEventListener('backbutton', function() {
-    app.logout();
-}, false);
-
-function deviceReady() {
-    dd.resolve();
-}
-
-$( document ).bind( "mobileinit", function() {
-    jqd.resolve();
+    document.addEventListener('backbutton', function() {
+        app.logout();
+    }, false);
 });
