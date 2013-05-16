@@ -116,11 +116,6 @@ var Application = function() {
         });
     };
     this.logout = function(e) {
-        var res = false;
-        this.showConfirm("¿Realmente desea salir?", function(ev) {res = (ev == 1)});
-        if (!res) {
-            return;
-        }
         var self = this;
         $.ajax({url: remoteUrl + '/logout',
             dataType:'jsonp',
@@ -254,5 +249,5 @@ $(document).ready(function() {
     app = new Application();
     document.addEventListener('backbutton', function() {
         app.logout();
-    }, false);
+    }, true);
 });
