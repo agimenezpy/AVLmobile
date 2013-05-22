@@ -239,15 +239,32 @@ var Application = function() {
 }
 
 var app;
+var dd = $.Deferred();
+var jqd = $.Deferred();
 
-$( document ).bind( "mobileinit", function() {
+$.when(dd,jqd).done(function () {
     $.mobile.allowCrossDomainPages = true;
     $.mobile.listview.prototype.options.filterPlaceholder = "Buscar vehiculo ...";
-});
-
-$(document).ready(function() {
     app = new Application();
-    document.addEventListener('backbutton', function() {
+})
+
+document.addEventListener('deviceready', deviceReady, false);
+document.addEventListener('backbutton', function() {
+    if ($.mobile.activePage.attr('id') == "login") {
+        navigator.app.exitApp();
+    }
+    else if ($.mobile.activePage.attr('id') == "vehiculos") {
         app.logout();
-    }, true);
+    }
+    else {
+        navigator.app.backHistory();
+    }
+}, false);
+
+function deviceReady() {
+    dd.resolve();
+}
+
+$( document ).bind( "mobileinit", function() {
+    jqd.resolve();
 });
