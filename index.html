@@ -23,16 +23,23 @@
 
     <div data-role="content">
         <form id="login-form" action="#vehiculos" method="post" data-ajax="false">
-        <div data-role="fieldcontain">
+        <ul data-role="listview" data-inset="true" data-divider-theme="d">
+        <li data-role="list-divider">Iniciar Sesi&oacute;n</li>
+        <li data-role="fieldcontain">
             <label for="username">Usuario:</label>
             <input type="text" name="username" id="username" value="" placeholder="usuario"/>
+        <li data-role="fieldcontain">
             <label for="password">Contrase&ntilde;a:</label>
             <input type="password" name="password" id="password" value="" placeholder="clave"/>
             <input type="hidden" name="nonce" id="nonce" value=""/>
-        </div>
-        <div data-role="fieldcontain" class="ui-hide-label">
-            <input type="submit" value="Ingresar" data-theme="e" data-icon="check" data-iconpos="top" />
-        </div>
+        </li>
+        <li  data-role="fieldcontain" class="ui-hide-label">
+            <fieldset class="ui-grid-a">
+            <div class="ui-block-a"><input type="reset" value="Limpiar" data-theme="d" data-icon="delete" data-iconpos="right" /></div>
+            <div class="ui-block-b"><input type="submit" value="Ingresar" data-theme="e" data-icon="check" data-iconpos="right" /></div>
+            </fieldset>
+        </li >
+        </ul>
         </form>
     </div><!-- /content -->
 </div><!-- /page -->

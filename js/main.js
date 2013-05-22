@@ -1,8 +1,10 @@
 var remoteUrl = "http://www.warrior.com.py/trackapi";
+var delay = 12000;
 var Application = function() {
     this.map = false;
     this.selected = -1;
     this.markers = [];
+    this.int = null;
 
     this.initialize = function() {
         var self = this;
@@ -61,6 +63,8 @@ var Application = function() {
         }
     }
     this.vehiculosList = function() {
+        clearInterval(app.int);
+        app.int = null;
         var el = $('#vehiculoList');
         el.html("");
         $.mobile.loading('show')
@@ -75,7 +79,7 @@ var Application = function() {
                         el.append("<li><a href='#"+elem.equipoId+"' onclick='app.mostrarVehiculo(this)'>"+
                             "<img src='img/"+( elem.velocidad > 0 ? "green" : "red")+".png' class='ui-li-icon'/><h3>"+elem.alias+"</h3>" +
                             "<p>("+ elem.vehiculoId +") " + elem.marca + "/" +  elem.modelo + "</p>" +
-                            "<p>"+elem.fechaEvento +"</p>" +
+                            "<p>"+elem.fechaRegistro +"</p>" +
                             "<span class='ui-li-count'>"+ elem.velocidad + " KM/H</span>" +
                             "</a></li>");
                     });
@@ -101,7 +105,7 @@ var Application = function() {
                 if (responseData.result.status) {
                     $.each(responseData.result.content, function(idx, elem) {
                         el.append("<li>"+
-                            "<img src='img/"+( elem.velocidad > 0 ? "green" : "red")+".png' class='ui-li-icon'/><h3>"+elem.fechaEvento+"</h3>" +
+                            "<img src='img/"+( elem.velocidad > 0 ? "green" : "red")+".png' class='ui-li-icon'/><h3>"+elem.fechaRegistro+"</h3>" +
                             "<p>" + elem.direccion+ "</p>" +
                             "<p>" + elem.descEvento  +"</p>" +
                             "<span class='ui-li-count'>"+ elem.velocidad + " KM/H</span>" +
@@ -117,6 +121,8 @@ var Application = function() {
     };
     this.logout = function(e) {
         var self = this;
+        clearInterval(app.int);
+        app.int = null;
         $.ajax({url: remoteUrl + '/logout',
             dataType:'jsonp',
             success: function(responseData, status, obj) {
@@ -158,10 +164,17 @@ var Application = function() {
         });
     }
     this.mostrarVehiculo = function (e) {
-        this.selected = e.href.replace(/.*#/,'')
-        $.mobile.changePage("#mapa", {transition: 'slide'});
+        if (this.selected == -1) {
+            this.selected = e.href.replace(/.*#/,'')
+            $.mobile.changePage("#mapa", {transition: 'slide'});
+        }
         $.mobile.loading('show')
         var self = this;
+        if (self.int == null) {
+            self.int = setInterval(function() {
+                self.mostrarVehiculo();
+            }, delay);
+        }
         $.ajax({
             url: remoteUrl + "/vehiculo/" + self.selected + "/",
             dataType: 'jsonp',
@@ -199,6 +212,11 @@ var Application = function() {
         el.html("");
         $.mobile.loading('show')
         var self = app;
+        if (self.int == null) {
+            self.int = setInterval(function() {
+                self.mostrarFlota();
+            }, delay);
+        }
         $.ajax({
             url: remoteUrl + "/tracks/",
             dataType: 'jsonp',
@@ -215,7 +233,7 @@ var Application = function() {
                             "<img src='img/"+( elem.velocidad > 0 ? "green" : "red")+".png' class='ui-li-icon'/><h3>Patente "+elem.vehiculoId+"</h3>" +
                             "<p>" + elem.direccion+ "</p>" +
                             "<p>" + elem.descEvento  +"</p>" +
-                            "<p>" + elem.fechaEvento  +"</p>" +
+                            "<p>" + elem.fechaRegistro  +"</p>" +
                             "<span class='ui-li-count'>"+ elem.velocidad + " KM/H</span>" +
                             "</li>");
                         var posicion = new google.maps.LatLng(elem.latitud, elem.longitud);
@@ -266,5 +284,9 @@ function deviceReady() {
 }
 
 $( document ).bind( "mobileinit", function() {
+    $.mobile.loader.prototype.options.text = "cargando";
+    $.mobile.loader.prototype.options.textVisible = true;
+    $.mobile.loader.prototype.options.theme = "a";
+    $.mobile.loader.prototype.options.html = "";
     jqd.resolve();
 });
