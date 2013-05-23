@@ -130,12 +130,12 @@ var Application = function() {
     };
     this.logout = function(e) {
         var res = false;
-        this.showConfirm("Desea salir?", function(btn) {
-            alert(res);
-            res = btn == 1;
-            alert("Boton " + btn + " Res " + res);
+        var self = this;
+        this.showConfirm("Esta seguro que desea salir?", function(btn) {
+            self.doLogout(btn == 1);
         })
-        alert("Salir Res " + res);
+    }
+    this.doLogout = function(res) {
         if (!res) {
             return;
         }
@@ -151,6 +151,7 @@ var Application = function() {
                 }
                 else {
                     self.showAlert(responseData.result.message,"Cerrar Sesion");
+                    $.mobile.changePage("#login");
                 }
             }
         });
@@ -302,11 +303,9 @@ function deviceReady() {
             navigator.app.exitApp();
         }
         else if ($.mobile.activePage.attr('id') == "home") {
-            app.showAlert("Lista " + $.mobile.activePage.attr('id'));
             app.logout();
         }
         else {
-            console.log("Atras " + app.showAlert($.mobile.activePage.attr('id')));
             navigator.app.backHistory();
         }
         return false;
