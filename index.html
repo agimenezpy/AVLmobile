@@ -24,7 +24,7 @@
     <div data-role="content">
         <form id="login-form" action="#vehiculos" method="post" data-ajax="false">
         <ul data-role="listview" data-inset="true" data-divider-theme="d">
-        <li data-role="list-divider">Iniciar Sesi&oacute;n</li>
+        <li data-role="list-divider">Inicio de Sesi&oacute;n</li>
         <li data-role="fieldcontain">
             <label for="username">Usuario:</label>
             <input type="text" name="username" id="username" value="" placeholder="usuario"/>
@@ -41,7 +41,42 @@
         </li >
         </ul>
         </form>
+        <div class="ui-bar">
+            <div class="ui-grid-b">
+                <div class="ui-block-a"></div>
+                <div class="ui-block-b">
+                    <small><i>Warrior S.R.L.</i></small>
+                </div>
+                <div class="ui-block-c" style="text-align: right"><img src="img/avl_48.png" /></div>
+            </div>
+        </div>
     </div><!-- /content -->
+</div><!-- /page -->
+
+<div data-role="page" id="home">
+
+    <div data-role="header">
+        <a href="#logout" onclick="app.logout(this)" data-icon="back" data-iconpos="notext">Salir</a>
+        <h1>AVL Mobile</h1>
+        <a href="#home" data-icon="home" data-iconpos="notext">Inicio</a>
+    </div><!-- /header -->
+
+    <div data-role="content" class="nav-glyphish" >
+        <ul data-role="listview" data-inset="true" data-theme="d">
+            <li><img src="img/avl_96.png"><h2>Men&uacute; de Aplicaci&oacute;n</h2></li>
+        </ul>
+        <div class="ui-grid-solo">
+            <div class="ui-block-a">
+                <a href="#vehiculos" data-theme="e" data-role="button" data-icon="custom-radar" data-corners="false" data-iconpos="top" data-transition="fade">Vehiculos</a>
+            </div>
+        </div>
+        <div class="ui-grid-solo" >
+            <div class="ui-block-a">
+                <a href="#mapa" data-theme="e"  data-role="button" data-icon="custom-map" data-corners="false" data-iconpos="top" data-transition="fade">Mapa de Flota</a>
+            </div>
+        </div>
+    </div><!-- /content -->
+
 </div><!-- /page -->
 
 <div data-role="page" id="vehiculos">
@@ -49,21 +84,13 @@
     <div data-role="header">
         <a href="#logout" onclick="app.logout(this)" data-icon="back" data-iconpos="notext">Salir</a>
         <h1>AVL Mobile</h1>
-        <a href="#vehiculos" data-icon="home" data-iconpos="notext">Inicio</a>
+        <a href="#home" data-icon="home" data-iconpos="notext">Inicio</a>
     </div><!-- /header -->
 
     <div data-role="content">
         <ul id="vehiculoList" data-role="listview" data-filter="true">
         </ul>
     </div><!-- /content -->
-
-    <div data-role="footer" data-theme="c" data-position="fixed">
-        <div data-role="navbar" class="nav-glyphish">
-            <ul><li>
-            <a href="#mapa" data-icon="custom-map" data-iconpos="top" data-transition="slideup">Mapa de Flota</a>
-            </li></ul>
-        </div>
-    </div>
 </div><!-- /page -->
 
 <div data-role="page" id="mapa" style="height: 100%;">
@@ -71,7 +98,7 @@
     <div data-role="header">
         <a href="#logout" onclick="app.logout(this)" data-icon="back" data-iconpos="notext">Salir</a>
         <h1>AVL Mobile</h1>
-        <a href="#vehiculos" data-icon="home" data-iconpos="notext">Inicio</a>
+        <a href="#home" data-icon="home" data-iconpos="notext">Inicio</a>
     </div><!-- /header -->
 
     <div data-role="content" style="height: 100%;padding:0;">

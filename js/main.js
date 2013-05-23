@@ -1,14 +1,16 @@
 var remoteUrl = "http://www.warrior.com.py/trackapi";
-var delay = 12000;
+var delay = 15000;
 var Application = function() {
     this.map = false;
     this.selected = -1;
     this.markers = [];
     this.int = null;
+    this.zoomTo = false;
 
     this.initialize = function() {
         var self = this;
         $('#login-form').live("submit", this.login);
+        $('#home').live("pageshow", self.home);
         $('#vehiculos').live("pageshow", self.vehiculosList);
         $('#detalles').live("pageshow", self.trackList);
         $('#mapa').live("pageshow", self.mostrarFlota);
@@ -17,7 +19,7 @@ var Application = function() {
             dataType:'jsonp',
             success: function(responseData, status, obj) {
                 if (responseData.result.status) {
-                    $.mobile.changePage("#vehiculos", {transition: 'slide'});
+                    $.mobile.changePage("#home", {transition: 'slide'});
                 }
                 else {
                     $("#nonce").val(responseData.result.nonce);
@@ -62,6 +64,12 @@ var Application = function() {
             func(result ? 1 : 2);
         }
     }
+    this.home = function() {
+        clearInterval(app.int);
+        app.int = null;
+        app.selected = -1;
+        this.zoomTo = false;
+    }
     this.vehiculosList = function() {
         clearInterval(app.int);
         app.int = null;
@@ -69,6 +77,7 @@ var Application = function() {
         el.html("");
         $.mobile.loading('show')
         app.selected = -1;
+        this.zoomTo = false;
         $.ajax({
             url: remoteUrl + "/vehiculos/",
             dataType: 'jsonp',
@@ -120,6 +129,13 @@ var Application = function() {
         });
     };
     this.logout = function(e) {
+        var res = false;
+        this.showConfirm("Desea salir?", function(btn) {
+            res = btn == 1;
+        })
+        if (!res) {
+            return;
+        }
         var self = this;
         clearInterval(app.int);
         app.int = null;
@@ -147,7 +163,7 @@ var Application = function() {
             success: function(responseData, status, obj) {
                 $.mobile.loading('hide')
                 if (responseData.result.status) {
-                    $.mobile.changePage("#vehiculos", {transition: 'slide'});
+                    $.mobile.changePage("#home", {transition: 'slide'});
                     $this.reset()
                 }
                 else {
@@ -192,9 +208,12 @@ var Application = function() {
                         icon: "img/marker_" + (responseData.result.content.velocidad > 0 ? "green" : "red") + ".png"
                     }));
                     self.map.panTo(posicion);
-                    var bounds = new google.maps.LatLngBounds()
-                    bounds.extend(posicion);
-                    self.map.fitBounds(bounds);
+                    if (responseData.result.content.velocidad == 0 || self.zoomTo == false) {
+                        var bounds = new google.maps.LatLngBounds();
+                        bounds.extend(posicion);
+                        self.map.fitBounds(bounds);
+                        self.zoomTo = true;
+                    }
                 }
                 else {
                     app.showAlert(responseData.result.message,"Obtener vehiculo");
@@ -245,7 +264,11 @@ var Application = function() {
                         bounds.extend(posicion);
                     });
                     self.map.fitBounds(bounds);
-                    $(el).listview('refresh');
+                    try {
+                        $(el).listview('refresh');
+                    }catch(e){
+
+                    }
                 }
                 else {
                     app.showAlert(responseData.result.message,"Obtener vehiculos");
@@ -267,20 +290,24 @@ $.when(dd,jqd).done(function () {
 })
 
 document.addEventListener('deviceready', deviceReady, false);
-document.addEventListener('backbutton', function() {
-    if ($.mobile.activePage.attr('id') == "login") {
-        navigator.app.exitApp();
-    }
-    else if ($.mobile.activePage.attr('id') == "vehiculos") {
-        app.logout();
-    }
-    else {
-        navigator.app.backHistory();
-    }
-}, false);
 
 function deviceReady() {
     dd.resolve();
+    document.addEventListener('backbutton', function() {
+        if ($.mobile.activePage.attr('id') == "login") {
+            app.showAlert("Salir " + $.mobile.activePage.attr('id'));
+            navigator.app.exitApp();
+        }
+        else if ($.mobile.activePage.attr('id') == "home") {
+            app.showAlert("Lista" + $.mobile.activePage.attr('id'));
+            app.logout();
+        }
+        else {
+            console.log("Atras" + app.showAlert($.mobile.activePage.attr('id')));
+            navigator.app.backHistory();
+        }
+        return false;
+    }, false);
 }
 
 $( document ).bind( "mobileinit", function() {
