@@ -57,7 +57,7 @@ var Application = function() {
     }
     this.showConfirm = function(message, func) {
         if (navigator.notification.confirm) {
-            navigator.notification.confirm(message, func);
+            navigator.notification.confirm(message, func,"Confirmacion","SI,NO");
         }
         else {
             var result = confirm(message)
@@ -131,8 +131,11 @@ var Application = function() {
     this.logout = function(e) {
         var res = false;
         this.showConfirm("Desea salir?", function(btn) {
+            alert(res);
             res = btn == 1;
+            alert("Boton " + btn + " Res " + res);
         })
+        alert("Salir Res " + res);
         if (!res) {
             return;
         }
@@ -299,11 +302,11 @@ function deviceReady() {
             navigator.app.exitApp();
         }
         else if ($.mobile.activePage.attr('id') == "home") {
-            app.showAlert("Lista" + $.mobile.activePage.attr('id'));
+            app.showAlert("Lista " + $.mobile.activePage.attr('id'));
             app.logout();
         }
         else {
-            console.log("Atras" + app.showAlert($.mobile.activePage.attr('id')));
+            console.log("Atras " + app.showAlert($.mobile.activePage.attr('id')));
             navigator.app.backHistory();
         }
         return false;
