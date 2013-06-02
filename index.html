@@ -167,14 +167,21 @@
     </div>
     <div data-role="content" data-theme="c">
         <form id="formFechas" data-ajax="false">
-            <div style="padding:10px 20px;">
-                <h3>Eliga el rango de fechas</h3>
+            <fieldset data-role="controlgroup">
+                <legend>Fecha Inicial</legend>
                 <label for="fechaInicio" class="ui-hidden-accessible">Fecha Inicial:</label>
-                <input type="datetime-local" name="fecha_inicio" id="fechaInicio" value="" placeholder="Fecha inicial" data-theme="c">
+                <input type="date" name="fecha_inicio" id="fechaInicio" value="" placeholder="Fecha inicial" data-theme="c">
+                <label for="tiempoInicio" class="ui-hidden-accessible">Tiempo Inicial:</label>
+                <input type="time" name="tiempo_inicio" id="tiempoInicio" value="" placeholder="Tiempo inicial" data-theme="c">
+            </fieldset>
+            <fieldset data-role="controlgroup">
+                <legend>Fecha Final</legend>
                 <label for="fechaFin" class="ui-hidden-accessible">Fecha Final:</label>
-                <input type="datetime-local" name="fecha_fin" id="fechaFin" value="" placeholder="Fecha final" data-theme="c">
-                <a href="#resumen" data-role="button" data-theme="b" data-icon="check" data-rel="back">Listo</a>
-            </div>
+                <input type="date" name="fecha_fin" id="fechaFin" value="" placeholder="Fecha final" data-theme="c">
+                <label for="tiempoFin" class="ui-hidden-accessible">Tiempo Final:</label>
+                <input type="time" name="tiempo_fin" id="tiempoFin" value="" placeholder="Tiempo final" data-theme="c">
+            </fieldset>
+            <a href="#resumen" data-role="button" data-theme="b" data-icon="check" data-rel="back">Listo</a>
         </form>
     </div>
 </div>

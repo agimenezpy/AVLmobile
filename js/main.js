@@ -328,10 +328,12 @@ var Application = function() {
             var d1 = new Date();
             var d2 = new Date(d1 - valor*dia);
         }
-        $("#fechaFin").val(d1.getFullYear() + "-" + ("0" + (d1.getMonth() + 1)).substr(-2) + "-" + ("0" + d1.getDate()).substr(-2) + "T" +
+        $("#fechaFin").val(d1.getFullYear() + "-" + ("0" + (d1.getMonth() + 1)).substr(-2) + "-" + ("0" + d1.getDate()).substr(-2));
+        $("#tiempoFin").val(
             ("0" + d1.getHours()).substr(-2) + ":" + ("0" + d1.getMinutes()).substr(-2) + ":" + ("0" + d1.getSeconds()).substr(-2)
         );
-        $("#fechaInicio").val(d2.getFullYear() + "-" + ("0" + (d2.getMonth() + 1)).substr(-2) + "-" + ("0" + d2.getDate()).substr(-2) + "T" +
+        $("#fechaInicio").val(d2.getFullYear() + "-" + ("0" + (d2.getMonth() + 1)).substr(-2) + "-" + ("0" + d2.getDate()).substr(-2));
+        $("#tiempoInicio").val(
             ("0" + d2.getHours()).substr(-2) + ":" + ("0" + d2.getMinutes()).substr(-2) + ":" + ("0" + d2.getSeconds()).substr(-2)
         );
         if ($.mobile.activePage.attr('id') == "resumen")
