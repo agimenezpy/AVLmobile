@@ -75,6 +75,11 @@
                 <a href="#mapa" data-theme="e"  data-role="button" data-icon="custom-map" data-corners="false" data-iconpos="top" data-transition="fade">Mapa de Flota</a>
             </div>
         </div>
+        <div class="ui-grid-solo" >
+            <div class="ui-block-a">
+                <a href="#resumen" data-theme="e"  data-role="button" data-icon="custom-dash" data-corners="false" data-iconpos="top" data-transition="slideup">Resumen de Flota</a>
+            </div>
+        </div>
     </div><!-- /content -->
 
 </div><!-- /page -->
@@ -129,5 +134,49 @@
         </ul>
     </div><!-- /content -->
 </div><!-- /page -->
+
+<div data-role="page" id="resumen">
+
+    <div data-role="header">
+        <a href="#logout" onclick="app.logout(this)" data-icon="back" data-iconpos="notext">Salir</a>
+        <h1>AVL Mobile</h1>
+        <a href="#home" data-icon="home" data-iconpos="notext">Inicio</a>
+    </div><!-- /header -->
+
+    <div data-role="content">
+        <ul id="resumenList" data-role="listview" data-theme="d" data-divider-theme="e">
+        </ul>
+    </div><!-- /content -->
+
+    <div data-role="footer" data-position="fixed" data-theme="c">
+        <div data-role="navbar">
+            <ul><li><select name="fechas" id="fechas" data-native-menu="false" data-rel="dialog">
+            <option>Periodo</option>
+            <option value="0" selected="selected">Hoy</option>
+            <option value="3">Hace 3 dias</option>
+            <option value="7">Hace 7 dias</option>
+            <option value="-1">Personalizar</option>
+            </select></li></ul>
+        </div>
+    </div>
+</div><!-- /page -->
+
+<div data-role="dialog" id="popupMenu">
+    <div data-role="header" datat-theme="d">
+        <h1 class="ui-title">Establecer fechas</h1>
+    </div>
+    <div data-role="content" data-theme="c">
+        <form id="formFechas" data-ajax="false">
+            <div style="padding:10px 20px;">
+                <h3>Eliga el rango de fechas</h3>
+                <label for="fechaInicio" class="ui-hidden-accessible">Fecha Inicial:</label>
+                <input type="datetime-local" name="fecha_inicio" id="fechaInicio" value="" placeholder="Fecha inicial" data-theme="c">
+                <label for="fechaFin" class="ui-hidden-accessible">Fecha Final:</label>
+                <input type="datetime-local" name="fecha_fin" id="fechaFin" value="" placeholder="Fecha final" data-theme="c">
+                <a href="#resumen" data-role="button" data-theme="b" data-icon="check" data-rel="back">Listo</a>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
 </html>

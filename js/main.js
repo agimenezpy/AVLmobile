@@ -1,5 +1,7 @@
 var remoteUrl = "http://www.warrior.com.py/trackapi";
 var delay = 15000;
+var dia = 24*3600*1000;
+var hora = 3600*1000;
 var Application = function() {
     this.map = false;
     this.selected = -1;
@@ -14,6 +16,8 @@ var Application = function() {
         $('#vehiculos').live("pageshow", self.vehiculosList);
         $('#detalles').live("pageshow", self.trackList);
         $('#mapa').live("pageshow", self.mostrarFlota);
+        $('#resumen').live("pageshow", self.mostrarResumen);
+        $('#fechas').live('change', self.establecerFechas);
         this.cargarMapa();
         $.ajax({url: remoteUrl + '/login',
             dataType:'jsonp',
@@ -30,6 +34,7 @@ var Application = function() {
                 $.mobile.loading('hide');
             }
         });
+        this.establecerFechas();
     }
     this.cargarMapa = function() {
         var self = this;
@@ -279,6 +284,58 @@ var Application = function() {
                 }
             }
         });
+    }
+    this.mostrarResumen = function() {
+        var el = $('#resumenList');
+        el.html("");
+        $.mobile.loading('show')
+        $.ajax({
+            url: remoteUrl + "/resumen/",
+            dataType: 'jsonp',
+            data: $("#formFechas").serialize(),
+            success: function(responseData) {
+                $.mobile.loading('hide')
+                if (responseData.result.status) {
+                    $.each(responseData.result.content, function(idx, elem) {
+                        el.append(""+
+                            "<li data-role='list-divider'>Vehiculo<span class='ui-li-count'>"+elem.vehiculoId+"</span></li>" +
+                            "<li><p><strong>Distancia Recorrida</strong></p><span class='ui-li-count'>" + Math.round(elem.distancia)+ " Km</span></li>" +
+                            "<li><p><strong>Velocidad M&aacute;xima</strong></p><span class='ui-li-count'>" + elem.vmaxima +" Km/h</span></li>" +
+                            "<li><p><strong>Velocidad Promedio</strong></p><span class='ui-li-count'>"+ elem.vpromedio+ " Km/h</span></li>" +
+                            "<li><p><strong>Consumo Aproximado</strong></p><span class='ui-li-count'>" + elem.combustible +" Lts./100Km</span></li>" +
+                            "<li><p><strong>Consumo Estimado</strong></p><span class='ui-li-count'>" + Math.round(elem.consumo) +" Lts.</span></li>" +
+                            "");
+                    });
+                    $(el).listview('refresh');
+                }
+                else {
+                    app.showAlert(responseData.result.message,"Obtener resumen");
+                }
+            }
+        });
+    };
+    this.establecerFechas = function(e) {
+        var valor = $("#fechas").val();
+        if (valor == -1) {
+            $.mobile.changePage("#popupMenu", 'pop', false, true)
+            return;
+        }
+        else if (valor == 0) {
+            var d1 = new Date();
+            var d2 = new Date(d1 - (d1.getHours() + d1.getMinutes()/60 + d1.getSeconds()/3600)*hora);
+        }
+        else {
+            var d1 = new Date();
+            var d2 = new Date(d1 - valor*dia);
+        }
+        $("#fechaFin").val(d1.getFullYear() + "-" + ("0" + d1.getMonth() + 1).substr(-2) + "-" + ("0" + d1.getDate()).substr(-2) + "T" +
+            ("0" + d1.getHours()).substr(-2) + ":" + ("0" + d1.getMinutes()).substr(-2) + ":" + ("0" + d1.getSeconds()).substr(-2)
+        );
+        $("#fechaInicio").val(d2.getFullYear() + "-" + ("0" + d2.getMonth() + 1).substr(-2) + "-" + ("0" + d2.getDate()).substr(-2) + "T" +
+            ("0" + d2.getHours()).substr(-2) + ":" + ("0" + d2.getMinutes()).substr(-2) + ":" + ("0" + d2.getSeconds()).substr(-2)
+        );
+        if ($.mobile.activePage.attr('id') == "resumen")
+            app.mostrarResumen();
     }
     this.initialize();
 }
