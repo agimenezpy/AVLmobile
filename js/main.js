@@ -258,7 +258,8 @@ var Application = function() {
                     var bounds = new google.maps.LatLngBounds()
                     $.each(responseData.result.content, function(idx, elem) {
                         el.append("<li>"+
-                            "<img src='img/"+( elem.velocidad > 0 ? "green" : "red")+".png' class='ui-li-icon'/><h3>Patente "+elem.vehiculoId+"</h3>" +
+                            "<img src='img/"+( elem.velocidad > 0 ? "green" : "red")+".png' class='ui-li-icon'/><h3>"+elem.alias+"</h3>" +
+                            "<span class='ui-li-aside'>("+ elem.vehiculoId + ")</span>" +
                             "<p>" + elem.direccion+ "</p>" +
                             "<p>" + elem.descEvento  +"</p>" +
                             "<p>" + elem.fechaRegistro  +"</p>" +
@@ -272,7 +273,10 @@ var Application = function() {
                         }));
                         bounds.extend(posicion);
                     });
-                    self.map.fitBounds(bounds);
+                    if (self.zoomTo == false) {
+                        self.map.fitBounds(bounds);
+                        self.zoomTo = true;
+                    }
                     try {
                         $(el).listview('refresh');
                     }catch(e){
@@ -298,7 +302,7 @@ var Application = function() {
                 if (responseData.result.status) {
                     $.each(responseData.result.content, function(idx, elem) {
                         el.append(""+
-                            "<li data-role='list-divider'>Vehiculo<span class='ui-li-count'>"+elem.vehiculoId+"</span></li>" +
+                            "<li data-role='list-divider'>"+elem.alias+"<span class='ui-li-count'>"+elem.vehiculoId+"</span></li>" +
                             "<li><p><strong>Distancia Recorrida</strong></p><span class='ui-li-count'>" + Math.round(elem.distancia)+ " Km</span></li>" +
                             "<li><p><strong>Velocidad M&aacute;xima</strong></p><span class='ui-li-count'>" + elem.vmaxima +" Km/h</span></li>" +
                             "<li><p><strong>Velocidad Promedio</strong></p><span class='ui-li-count'>"+ elem.vpromedio+ " Km/h</span></li>" +
