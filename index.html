@@ -6,12 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/jquery.mobile-1.3.1.min.css" />
     <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/jqm-datebox.min.css" />
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
     <script src="lib/jquery-1.8.3.min.js"></script>
     <script src="phonegap.js"></script>
     <script src="js/main.js"></script>
     <script src="lib/jquery.mobile-1.3.1.min.js"></script>
     <script src="lib/md5.js"></script>
+    <script src="lib/jqm-datebox.core.min.js"></script>
+    <script src="lib/jqm-datebox.mode.flipbox.min.js"></script>
+    <script src="lib/jquery.mobile.datebox.i18n.es-ES.utf8.js"></script>
 </head>
 <body>
 
@@ -167,21 +171,30 @@
     </div>
     <div data-role="content" data-theme="c">
         <form id="formFechas" data-ajax="false">
-            <fieldset data-role="controlgroup">
-                <legend>Fecha Inicial</legend>
-                <label for="fechaInicio" class="ui-hidden-accessible">Fecha Inicial:</label>
-                <input type="date" name="fecha_inicio" id="fechaInicio" value="" placeholder="Fecha inicial" data-theme="c">
-                <label for="tiempoInicio" class="ui-hidden-accessible">Tiempo Inicial:</label>
-                <input type="time" name="tiempo_inicio" id="tiempoInicio" value="" placeholder="Tiempo inicial" data-theme="c">
-            </fieldset>
-            <fieldset data-role="controlgroup">
-                <legend>Fecha Final</legend>
-                <label for="fechaFin" class="ui-hidden-accessible">Fecha Final:</label>
-                <input type="date" name="fecha_fin" id="fechaFin" value="" placeholder="Fecha final" data-theme="c">
-                <label for="tiempoFin" class="ui-hidden-accessible">Tiempo Final:</label>
-                <input type="time" name="tiempo_fin" id="tiempoFin" value="" placeholder="Tiempo final" data-theme="c">
-            </fieldset>
-            <a href="#resumen" data-role="button" data-theme="b" data-icon="check" data-rel="back">Listo</a>
+        <ul data-role="listview" data-inset="true" data-divider-theme="c">
+            <li data-role="list-divider">Fecha Inicial</li>
+            <li data-role="fieldcontain">
+            <label for="fechaInicio" class="ui-hidden-accessible">Fecha Inicial:</label>
+            <input type="text" name="fecha_inicio" id="fechaInicio" value="" placeholder="Fecha inicial" data-role="datebox"
+                   data-options='{"mode":"flipbox"}'>
+            <label for="tiempoInicio" class="ui-hidden-accessible">Tiempo Inicial:</label>
+            <input type="text" name="tiempo_inicio" id="tiempoInicio" value="" placeholder="Tiempo inicial" data-role="datebox"
+                    data-options='{"mode":"timeflipbox"}'>
+            <li data-role="list-divider">Fecha Final</li>
+            <li data-role="fieldcontain">
+            <label for="fechaFin" class="ui-hidden-accessible">Fecha Final:</label>
+            <input type="text" name="fecha_fin" id="fechaFin" value="" placeholder="Fecha final" data-role="datebox"
+                   data-options='{"mode":"flipbox"}'>
+            <label for="tiempoFin" class="ui-hidden-accessible">Tiempo Final:</label>
+            <input type="text" name="tiempo_fin" id="tiempoFin" value="" placeholder="Tiempo final" data-role="datebox"
+                   data-options='{"mode":"timeflipbox"}'>
+            </li>
+            <li data-role="fieldcontain">
+                <fieldset class="ui-grid-solo">
+                    <div class="ui-block-a"><a href="#resumen" data-role="button" data-theme="b" data-icon="check" data-rel="back">Listo</a></div>
+                </fieldset>
+            </li>
+        </ul>
         </form>
     </div>
 </div>

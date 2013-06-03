@@ -328,13 +328,13 @@ var Application = function() {
             var d1 = new Date();
             var d2 = new Date(d1 - valor*dia);
         }
-        $("#fechaFin").val(d1.getFullYear() + "-" + ("0" + (d1.getMonth() + 1)).substr(-2) + "-" + ("0" + d1.getDate()).substr(-2));
+        $("#fechaFin").val(("0" + d1.getDate()).substr(-2) + "/" + ("0" + (d1.getMonth() + 1)).substr(-2) + "/" + d1.getFullYear());
         $("#tiempoFin").val(
-            ("0" + d1.getHours()).substr(-2) + ":" + ("0" + d1.getMinutes()).substr(-2) + ":" + ("0" + d1.getSeconds()).substr(-2)
+            ("0" + (d1.getHours() % 12)).substr(-2) + ":" + ("0" + d1.getMinutes()).substr(-2) + " " + (d1.getHours() > 12 ? "PM" : "AM")
         );
-        $("#fechaInicio").val(d2.getFullYear() + "-" + ("0" + (d2.getMonth() + 1)).substr(-2) + "-" + ("0" + d2.getDate()).substr(-2));
+        $("#fechaInicio").val(("0" + d2.getDate()).substr(-2)+ "/" + ("0" + (d2.getMonth() + 1)).substr(-2) + "/" + d2.getFullYear());
         $("#tiempoInicio").val(
-            ("0" + d2.getHours()).substr(-2) + ":" + ("0" + d2.getMinutes()).substr(-2) + ":" + ("0" + d2.getSeconds()).substr(-2)
+            ("0" + (d2.getHours() % 12)).substr(-2) + ":" + ("0" + d2.getMinutes()).substr(-2) + " " + (d2.getHours() > 12 ? "PM" : "AM")
         );
         if ($.mobile.activePage.attr('id') == "resumen")
             app.mostrarResumen();
