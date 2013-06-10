@@ -7,7 +7,7 @@
 
     <!-- versionCode is optional and Android only -->
 
-    <name>AVL Mobile</name>
+    <name>Warrior AVL</name>
 
     <description>
         Aplicación de rastreo para tu teléfono móvil.
@@ -30,6 +30,7 @@
     <icon src="img/avl_114.png" width="114" height="114" />
     <icon src="img/avl_512.png" width="512" height="512" />
     <icon src="img/avl_1024.png" width="1024" height="1024" />
+    <preference name="phonegap-version" value="2.7.0" />
     <preference name="android-minSdkVersion" value="10" />
     <preference name="android-licenseKey" value="MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAktU35o53u1Qx0oXndaVio5cBN9U8at2EwxsHafqZ1IV/9cuk/LJ4PbBf1MGHnpxE82WHTZlOG9Np1pHEqCHgseao6EXlVBX/s07XL9vmLa8TpH7v5Fbzn1qIG3zDXL+LOkUgDuFlMosZPTW63Uw8JTJ9Ln3iaZBsKeNMZ2VMoWFfgXMX4pV6D3fEJ7SWGbZT6EJKod/zHpefyf34Tuz+INGY1oo/Wwr4yOmgXG35PRb5F9O40o8m/hF7tqiQYJ03Q+QB9Vatmowk2uDubXNxFQX2R7T+87Oqd15rIhT8tTTsTqEIRK3S2NA728CJObxyBrkMrBkZelJUrlg4ti9O/QIDAQAB" />
 </widget>
