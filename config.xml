@@ -21,7 +21,8 @@
     <feature name="http://api.phonegap.com/1.0/network"/>
     <feature name="http://api.phonegap.com/1.0/notification"/>
 
-    <access origin="http://www.warrior.com.py/" />
+    <access origin="*.warrior.com.py" subdomains="true"/>
+    <access origin="*.google.com" subdomains="true" />
     <icon src="img/avl_36.png" width="36" height="36" />
     <icon src="img/avl_48.png" width="48" height="48" />
     <icon src="img/avl_57.png" width="57" height="57" />
