@@ -18,6 +18,12 @@ var Application = function() {
         $('#mapa').live("pageshow", self.mostrarFlota);
         $('#resumen').live("pageshow", self.mostrarResumen);
         $('#fechas').live('change', self.establecerFechas);
+        $('a').click(function() {
+            var hrf = $(this).data('href') || $(this).attr('href');
+            if (hrf) {
+                $.mobile.changePage(hrf);
+            }
+        });
         this.cargarMapa();
         $.ajax({url: remoteUrl + '/login',
             dataType:'jsonp',
