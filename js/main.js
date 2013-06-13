@@ -18,7 +18,13 @@ var Application = function() {
         $('#mapa').live("pageshow", self.mostrarFlota);
         $('#resumen').live("pageshow", self.mostrarResumen);
         $('#fechas').live('change', self.establecerFechas);
-        $('a').click(function() {
+        $('.e-exit').on("click",function() {
+            self.logout()
+        });
+        $('.e-home').on("click",function() {
+            $.mobile.changePage("#home");
+        });
+        $('a').on("click", function() {
             var hrf = $(this).data('href') || $(this).attr('href');
             if (hrf) {
                 $.mobile.changePage(hrf);
