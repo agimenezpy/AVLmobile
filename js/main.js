@@ -24,6 +24,14 @@ var Application = function() {
         $('.vehiculos').on("click",function() {
             $.mobile.changePage("#vehiculos");
         });
+        $('a').on("click", function(e) {
+            e.preventDefault();
+            var hrf = $(this).data('href') || $(this).attr('href');
+            if (hrf) {
+                alert(hrf);
+                $.mobile.changePage(hrf);
+            }
+        });
         this.cargarMapa();
         $.ajax({url: remoteUrl + '/login',
             dataType:'jsonp',
