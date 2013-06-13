@@ -24,6 +24,18 @@ var Application = function() {
         $('.e-home').on("click",function() {
             $.mobile.changePage("#home");
         });
+        $('.vehiculos').on("click",function() {
+            $.mobile.changePage("#vehiculos");
+        });
+        $('.mapa').on("swipe",function() {
+            $.mobile.changePage("#mapa");
+        });
+        $('.resumen').on("swipe",function() {
+            $.mobile.changePage("#resumen");
+        });
+        $('.detalles').on("click",function() {
+            $.mobile.changePage("#detalles");
+        });
         $('a').on("click", function() {
             var hrf = $(this).data('href') || $(this).attr('href');
             if (hrf) {
