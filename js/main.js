@@ -28,7 +28,7 @@ var Application = function() {
             e.preventDefault();
             var hrf = $(this).data('href') || $(this).attr('href');
             if (hrf) {
-                alert(hrf);
+                self.showAlert(hrf);
                 $.mobile.changePage(hrf);
             }
         });
