@@ -21,17 +21,6 @@ var Application = function() {
         $('.e-exit').on("click",function() {
             self.logout()
         });
-        $('.vehiculos').on("click",function() {
-            $.mobile.changePage("#vehiculos");
-        });
-        $('a').on("click", function(e) {
-            e.preventDefault();
-            var hrf = $(this).data('href') || $(this).attr('href');
-            if (hrf) {
-                self.showAlert(hrf);
-                $.mobile.changePage(hrf);
-            }
-        });
         this.cargarMapa();
         $.ajax({url: remoteUrl + '/login',
             dataType:'jsonp',
@@ -75,7 +64,7 @@ var Application = function() {
         }
     }
     this.showConfirm = function(message, func) {
-        if (navigator.notification.confirm) {
+        if (navigator.notification && navigator.notification.confirm) {
             navigator.notification.confirm(message, func,"Confirmacion","SI,NO");
         }
         else {
@@ -396,3 +385,5 @@ $( document ).bind( "mobileinit", function() {
     $.mobile.loader.prototype.options.html = "";
     jqd.resolve();
 });
+
+setTimeout(function(){dd.resolve()},2000);
