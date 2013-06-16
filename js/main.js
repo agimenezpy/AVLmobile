@@ -365,7 +365,6 @@ function deviceReady() {
     dd.resolve();
     document.addEventListener('backbutton', function() {
         if ($.mobile.activePage.attr('id') == "login") {
-            app.showAlert("Salir " + $.mobile.activePage.attr('id'));
             navigator.app.exitApp();
         }
         else if ($.mobile.activePage.attr('id') == "home") {
@@ -385,5 +384,3 @@ $( document ).bind( "mobileinit", function() {
     $.mobile.loader.prototype.options.html = "";
     jqd.resolve();
 });
-
-setTimeout(function(){dd.resolve()},2000);
