@@ -21,27 +21,43 @@
     <feature name="http://api.phonegap.com/1.0/network"/>
     <feature name="http://api.phonegap.com/1.0/notification"/>
 
+    <!-- Globals -->
     <access origin="*" />
-    <icon src="img/avl_36.png" width="36" height="36" />
-    <icon src="img/avl_48.png" width="48" height="48" />
-    <icon src="img/avl_57.png" width="57" height="57" />
-    <icon src="img/avl_72.png" width="72" height="72" />
-    <icon src="img/avl_96.png" width="96" height="96" />
-    <icon src="img/avl_114.png" width="114" height="114" />
-    <icon src="img/avl_512.png" width="512" height="512" />
-    <icon src="img/avl_1024.png" width="1024" height="1024" />
     <preference name="phonegap-version" value="2.7.0" />
+    <icon src="icon.png" />
+    <icon src="img/avl_512.png" width="512" height="512"/>
+    <icon src="img/avl_1024.png" width="1024" height="1024"/>
 
     <!-- Android -->
     <preference name="android-minSdkVersion" value="10" />
     <preference name="android-licenseKey" value="MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAktU35o53u1Qx0oXndaVio5cBN9U8at2EwxsHafqZ1IV/9cuk/LJ4PbBf1MGHnpxE82WHTZlOG9Np1pHEqCHgseao6EXlVBX/s07XL9vmLa8TpH7v5Fbzn1qIG3zDXL+LOkUgDuFlMosZPTW63Uw8JTJ9Ln3iaZBsKeNMZ2VMoWFfgXMX4pV6D3fEJ7SWGbZT6EJKod/zHpefyf34Tuz+INGY1oo/Wwr4yOmgXG35PRb5F9O40o8m/hF7tqiQYJ03Q+QB9Vatmowk2uDubXNxFQX2R7T+87Oqd15rIhT8tTTsTqEIRK3S2NA728CJObxyBrkMrBkZelJUrlg4ti9O/QIDAQAB" />
+    <plugin name="SplashScreen" value="org.apache.cordova.SplashScreen"/>
+    <icon src="icons/android/ldpi.png" gap:platform="android" gap:density="ldpi" />
+    <icon src="icons/android/mdpi.png" gap:platform="android" gap:density="mdpi" />
+    <icon src="icons/android/hdpi.png" gap:platform="android" gap:density="hdpi" />
+    <icon src="icons/android/xhdpi.png" gap:platform="android" gap:density="xhdpi" />
 
     <!-- iOS -->
+    <preference name="auto-hide-splash-screen" value="false" />
     <plugins>
         <plugin name="Device" value="CDVDevice" />
         <plugin name="Logger" value="CDVLogger" />
         <plugin name="NetworkStatus" value="CDVConnection" />
         <plugin name="Geolocation" value="CDVLocation" />
         <plugin name="Notification" value="CDVNotification" />
+        <plugin name="SplashScreen" value="CDVSplashScreen" />
     </plugins>
+    <icon src="icons/ios/icon.png" gap:platform="ios" width="57" height="57" />
+    <icon src="icons/ios/icon-72.png" gap:platform="ios" width="72" height="72" />
+    <icon src="icons/ios/icon_at_2x.png" gap:platform="ios" width="114" height="114" />
+    <icon src="icons/ios/icon-72_at_2x.png" gap:platform="ios" width="144" height="144" />
+    <gap:splash src="splash/ios/Default.png" gap:platform="ios" width="320" height="480" />
+    <gap:splash src="splash/ios/Default_at_2x.png" gap:platform="ios" width="640" height="960" />
+    <gap:splash src="splash/ios/Default-568_at_2x.png" gap:platform="ios" width="640" height="1136" />
+    <gap:splash src="splash/ios/Default-Landscape.png" gap:platform="ios" width="1024" height="748" />
+    <gap:splash src="splash/ios/Default-Portrait.png" gap:platform="ios" width="768" height="1004" />
+
+    <!-- retina iPad support: PhoneGap 2.5.0+ only -->
+    <gap:splash src="splash/ios/Default-Landscape_at_2x.png" gap:platform="ios" width="2048" height="1496" />
+    <gap:splash src="splash/ios/Default-Portrait_at_2x.png" gap:platform="ios" width="1536" height="2008" />
 </widget>

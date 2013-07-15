@@ -46,14 +46,6 @@ var Application = function() {
                 {streetViewControl:false, mapTypeId:google.maps.MapTypeId.HYBRID,
                     zoom: 10,
                     center: new google.maps.LatLng(-25.3, -57.6)})
-            /*navigator.geolocation.getCurrentPosition(function(position) {
-                    var posicion = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                    self.map.panTo(posicion);
-                    var bounds = new google.maps.LatLngBounds()
-                    bounds.extend(posicion);
-                    self.map.fitBounds(bounds);
-                },
-                function(error){})*/
         }
     }
     this.showAlert = function(message, title) {
@@ -219,8 +211,10 @@ var Application = function() {
                         map: self.map,
                         icon: "img/marker_" + (responseData.result.content.velocidad > 0 ? "green" : "red") + ".png"
                     }));
-                    self.map.panTo(posicion);
-                    if (responseData.result.content.velocidad == 0 || self.zoomTo == false) {
+                    if (responseData.result.content.valocidad > 0) {
+                        self.map.panTo(posicion);
+                    }
+                    if (self.zoomTo == false) {
                         var bounds = new google.maps.LatLngBounds();
                         bounds.extend(posicion);
                         self.map.fitBounds(bounds);
@@ -356,6 +350,9 @@ var jqd = $.Deferred();
 $.when(dd,jqd).done(function () {
     $.mobile.allowCrossDomainPages = true;
     $.mobile.listview.prototype.options.filterPlaceholder = "Buscar vehiculo ...";
+    if (navigator.splashscreen) {
+        navigator.splashscreen.hide();
+    }
     app = new Application();
 })
 
