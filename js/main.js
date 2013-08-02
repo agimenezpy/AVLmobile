@@ -78,7 +78,7 @@ var Application = function() {
         el.html("");
         $.mobile.loading('show')
         app.selected = -1;
-        this.zoomTo = false;
+        app.zoomTo = false;
         $.ajax({
             url: remoteUrl + "/vehiculos/",
             dataType: 'jsonp',
@@ -108,7 +108,7 @@ var Application = function() {
         el.html("");
         $.mobile.loading('show')
         app.selected = -1;
-        this.zoomTo = false;
+        app.zoomTo = false;
         $.ajax({
             url: remoteUrl + "/moviles/",
             dataType: 'jsonp',
