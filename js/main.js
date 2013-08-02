@@ -14,6 +14,7 @@ var Application = function() {
         $('#login-form').live("submit", this.login);
         $('#home').live("pageshow", self.home);
         $('#vehiculos').live("pageshow", self.vehiculosList);
+        $('#personas').live("pageshow", self.movilesList);
         $('#detalles').live("pageshow", self.trackList);
         $('#mapa').live("pageshow", self.mostrarFlota);
         $('#resumen').live("pageshow", self.mostrarResumen);
@@ -68,7 +69,7 @@ var Application = function() {
         clearInterval(app.int);
         app.int = null;
         app.selected = -1;
-        this.zoomTo = false;
+        app.zoomTo = false;
     }
     this.vehiculosList = function() {
         clearInterval(app.int);
@@ -96,6 +97,36 @@ var Application = function() {
                 }
                 else {
                     app.showAlert(responseData.result.message,"Obtener vehiculos");
+                }
+            }
+        });
+    };
+    this.movilesList = function() {
+        clearInterval(app.int);
+        app.int = null;
+        var el = $('#movilesList');
+        el.html("");
+        $.mobile.loading('show')
+        app.selected = -1;
+        this.zoomTo = false;
+        $.ajax({
+            url: remoteUrl + "/moviles/",
+            dataType: 'jsonp',
+            success: function(responseData) {
+                $.mobile.loading('hide')
+                if (responseData.result.status) {
+                    $.each(responseData.result.content, function(idx, elem) {
+                        el.append("<li><a href='#"+elem.equipoId+"' onclick='app.mostrarMovil(this)'>"+
+                            "<img src='img/"+( elem.velocidad > 0 ? "green" : "red")+".png' class='ui-li-icon'/><h3>"+elem.alias+"</h3>" +
+                            "<p>("+ elem.movilId +") " + elem.nombre + " " +  elem.apellidos + "</p>" +
+                            "<p>"+elem.fechaRegistro +"</p>" +
+                            "<span class='ui-li-count'>"+ elem.velocidad + " KM/H</span>" +
+                            "</a></li>");
+                    });
+                    $(el).listview('refresh');
+                }
+                else {
+                    app.showAlert(responseData.result.message,"Obtener moviles");
                 }
             }
         });
@@ -211,7 +242,7 @@ var Application = function() {
                         map: self.map,
                         icon: "img/marker_" + (responseData.result.content.velocidad > 0 ? "green" : "red") + ".png"
                     }));
-                    if (responseData.result.content.valocidad > 0) {
+                    if (responseData.result.content.velocidad > 0) {
                         self.map.panTo(posicion);
                     }
                     if (self.zoomTo == false) {
@@ -223,6 +254,50 @@ var Application = function() {
                 }
                 else {
                     app.showAlert(responseData.result.message,"Obtener vehiculo");
+                }
+            }
+        });
+    }
+    this.mostrarMovil = function (e) {
+        if (this.selected == -1) {
+            this.selected = e.href.replace(/.*#/,'')
+            $.mobile.changePage("#mapa", {transition: 'slide'});
+        }
+        $.mobile.loading('show')
+        var self = this;
+        if (self.int == null) {
+            self.int = setInterval(function() {
+                self.mostrarMovil();
+            }, delay);
+        }
+        $.ajax({
+            url: remoteUrl + "/movil/" + self.selected + "/",
+            dataType: 'jsonp',
+            success: function(responseData) {
+                $.mobile.loading('hide')
+                if (responseData.result.status) {
+                    var posicion = new google.maps.LatLng(responseData.result.content.latitud, responseData.result.content.longitud);
+                    $.each(self.markers, function(i,o) {
+                        o.setMap(null);
+                    });
+                    self.markers = [];
+                    self.markers.push(new google.maps.Marker({
+                        position: posicion,
+                        map: self.map,
+                        icon: "img/male.png"
+                    }));
+                    if (responseData.result.content.velocidad > 0) {
+                        self.map.panTo(posicion);
+                    }
+                    if (self.zoomTo == false) {
+                        var bounds = new google.maps.LatLngBounds();
+                        bounds.extend(posicion);
+                        self.map.fitBounds(bounds);
+                        self.zoomTo = true;
+                    }
+                }
+                else {
+                    app.showAlert(responseData.result.message,"Obtener movil");
                 }
             }
         });
