@@ -90,6 +90,7 @@ var Application = function() {
                             "<img src='img/"+( elem.velocidad > 0 ? "green" : "red")+".png' class='ui-li-icon'/><h3>"+elem.alias+"</h3>" +
                             "<p>("+ elem.vehiculoId +") " + elem.marca + "/" +  elem.modelo + "</p>" +
                             "<p>"+elem.fechaRegistro +"</p>" +
+                            ( elem.rumbo != '' ? "<img src='img/arrow_"+elem.rumbo+".png' class='ui-li-icon' style='margin-top: 22px;'/>" : "") +
                             "<span class='ui-li-count'>"+ elem.velocidad + " KM/H</span>" +
                             "</a></li>");
                     });
@@ -148,6 +149,7 @@ var Application = function() {
                             "<img src='img/"+( elem.velocidad > 0 ? "green" : "red")+".png' class='ui-li-icon'/><h3>"+elem.fechaRegistro+"</h3>" +
                             "<p>" + elem.direccion+ "</p>" +
                             "<p>" + elem.descEvento  +"</p>" +
+                            ( elem.rumbo != '' ? "<img src='img/arrow_"+elem.rumbo+".png' class='ui-li-icon' style='margin-top: 22px;'/>" : "") +
                             "<span class='ui-li-count'>"+ elem.velocidad + " KM/H</span>" +
                             "</li>");
                     });
@@ -242,6 +244,17 @@ var Application = function() {
                         map: self.map,
                         icon: "img/marker_" + (responseData.result.content.velocidad > 0 ? "green" : "red") + ".png"
                     }));
+                    var elem = responseData.result.content;
+                    var infowindow = new google.maps.InfoWindow({
+                      content: "<h3>"+elem.alias+"</h3>" +
+                            "<b>("+ elem.vehiculoId +") " + elem.marca + "/" +  elem.modelo + "</b><br/>" +
+                            "<i>"+elem.fechaRegistro +"</i><br/>" +
+                            ((elem.rumbo != '') ? "<img src='img/arrow_"+elem.rumbo+".png'/><br/>" : "") +
+                            "<code>"+ elem.velocidad + " KM/H</code>"
+                    });
+                    google.maps.event.addListener(self.markers[0], 'click', function() {
+                        infowindow.open(self.map,self.markers[0]);
+                    });
                     if (responseData.result.content.velocidad > 0) {
                         self.map.panTo(posicion);
                     }
@@ -317,6 +330,9 @@ var Application = function() {
                 self.mostrarFlota();
             }, delay);
         }
+        var infowindow = new google.maps.InfoWindow({
+          content: ""
+        });
         $.ajax({
             url: remoteUrl + "/tracks/",
             dataType: 'jsonp',
@@ -335,6 +351,7 @@ var Application = function() {
                             "<p>" + elem.direccion+ "</p>" +
                             "<p>" + elem.descEvento  +"</p>" +
                             "<p>" + elem.fechaRegistro  +"</p>" +
+                            ( elem.rumbo != '' ? "<img src='img/arrow_"+elem.rumbo+".png' class='ui-li-icon' style='margin-top: 22px;'/>" : "") +
                             "<span class='ui-li-count'>"+ elem.velocidad + " KM/H</span>" +
                             "</li>");
                         var posicion = new google.maps.LatLng(elem.latitud, elem.longitud);
@@ -343,6 +360,16 @@ var Application = function() {
                             map: self.map,
                             icon: "img/marker_" + (elem.velocidad > 0 ? "green" : "red") + ".png"
                         }));
+                        var current = self.markers[self.markers.length-1];
+                        google.maps.event.addListener(current, 'click', function() {
+                            infowindow.setContent( "<h3>"+elem.alias+"</h3>" +
+                            "<b>("+ elem.vehiculoId +") " + elem.marca + "/" +  elem.modelo + "</b><br/>" +
+                            "<i>"+elem.fechaRegistro +"</i><br/>" +
+                            ((elem.rumbo != '') ? "<img src='img/arrow_"+elem.rumbo+".png'/><br/>" : "") +
+                            "<code>"+ elem.velocidad + " KM/H</code>");
+
+                            infowindow.open(self.map,current);
+                        });
                         bounds.extend(posicion);
                     });
                     if (self.zoomTo == false) {
