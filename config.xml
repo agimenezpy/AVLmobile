@@ -2,7 +2,7 @@
 <widget xmlns = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "py.warrior.avl"
-        versionCode="3"
+        versionCode="4"
         version   = "1.0.4">
 
     <!-- versionCode is optional and Android only -->
