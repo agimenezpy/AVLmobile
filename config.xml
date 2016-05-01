@@ -23,7 +23,7 @@
 
     <!-- Globals -->
     <access origin="*" />
-    <preference name="phonegap-version" value="5.2.0" />
+    <preference name="phonegap-version" value="cli-5.2.0" />
     <icon src="icon.png" />
     <icon src="img/avl_512.png" width="512" height="512"/>
     <icon src="img/avl_1024.png" width="1024" height="1024"/>
