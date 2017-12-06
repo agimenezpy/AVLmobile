@@ -31,7 +31,7 @@
     <!-- Android -->
     <preference name="android-minSdkVersion" value="10" />
     <preference name="android-licenseKey" value="MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAktU35o53u1Qx0oXndaVio5cBN9U8at2EwxsHafqZ1IV/9cuk/LJ4PbBf1MGHnpxE82WHTZlOG9Np1pHEqCHgseao6EXlVBX/s07XL9vmLa8TpH7v5Fbzn1qIG3zDXL+LOkUgDuFlMosZPTW63Uw8JTJ9Ln3iaZBsKeNMZ2VMoWFfgXMX4pV6D3fEJ7SWGbZT6EJKod/zHpefyf34Tuz+INGY1oo/Wwr4yOmgXG35PRb5F9O40o8m/hF7tqiQYJ03Q+QB9Vatmowk2uDubXNxFQX2R7T+87Oqd15rIhT8tTTsTqEIRK3S2NA728CJObxyBrkMrBkZelJUrlg4ti9O/QIDAQAB" />
-    <plugin name="org.apache.cordova.splashscreen" spec="0.2.7" source="pgb" />
+    <plugin name="org.apache.cordova.splashscreen" spec="~4.0.1" source="pgb" />
     <icon src="icons/android/ldpi.png" gap:platform="android" gap:density="ldpi" />
     <icon src="icons/android/mdpi.png" gap:platform="android" gap:density="mdpi" />
     <icon src="icons/android/hdpi.png" gap:platform="android" gap:density="hdpi" />
